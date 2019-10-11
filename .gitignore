@@ -1,0 +1,24 @@
+# IDE
+.vscode
+.idea
+
+# dependencies
+node_modules
+
+# logs
+npm-debug.log
+yarn.lock
+
+# Backpack build
+build.zip
+CocosPay
+CocosPay.zip
+build.crx
+build
+release
+
+# pack
+package-lock.json
+
+# key
+key.pem
