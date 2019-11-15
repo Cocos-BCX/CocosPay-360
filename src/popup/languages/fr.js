@@ -115,7 +115,10 @@ export default {
     test: 'TEST',
     coin: 'Monnaies',
     registerCreator: 'S\'inscrire en tant que développeur',
-    creatWorldView: 'Créer un multivers'
+    creatWorldView: 'Créer un multivers',
+    creatNHAsset: 'NH资产创建',
+    deleteNHAsset: 'NH资产删除',
+    publishVotes: 'Vote'
   },
   // alert
   alert: {
@@ -184,8 +187,19 @@ export default {
     memo: 'Mémo',
     charge: 'Frais',
     nhTitle: 'Transferts d\'actif NH',
-    nhId: 'ID d\'actif NH',
-    worldView: 'Nom du multivers:'
+    nhId: 'Coin:',
+    worldView: 'Nom du multivers:',
+    id: '资产id:',
+    world: '世界观:',
+    nhData: 'NH资产数据data:',
+    nhUser: 'NH资产拥有者:',
+    nhNum: 'NH资产数量:',
+    type: 'Type:',
+    nhAssets: '批量创建不同资:',
+    itemlds: 'itemlds:',
+    tpType: '类型:',
+    tpId: '账号ID:',
+    tpNum: '票数:'
   },
   // settings
   settings: {

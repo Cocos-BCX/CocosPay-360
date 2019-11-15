@@ -13,6 +13,9 @@ import axios from "axios";
 import bcx from '../utils/bcx'
 import async from '../../lib/mapTransaction/index';
 let NewBCX = bcx.getBCXWithState();
+let sysLang = (navigator.language || navigator.userLanguage).substr(0, 2);
+sysLang = sysLang === "ZH" ? 'ZH' : 'EN'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -23,7 +26,7 @@ export default new Vuex.Store({
   },
   state: {
     loading: false,
-    curLng: window.localStorage.getItem("lang_type") || "ZH",
+    curLng: window.localStorage.getItem("lang_type") || sysLang,
     currentNetwork: {
       id: 1,
       name: 'TestNet',
@@ -157,6 +160,7 @@ export default new Vuex.Store({
           .get("http://backend.test.cjfan.net/getParams")
           .then(response => {
             nodes = response.data.data;
+            console.log(nodes);
             Storage.set("node", nodes);
           })
           .catch(function (error) {
@@ -194,7 +198,7 @@ export default new Vuex.Store({
     }, Node) {
       try {
         await NewBCX.apiConfig({
-          default_ws_node: Node.ws,
+          default_ws_node: 'ws://test.cocosbcx.net',
           ws_node_list: [{
             url: Node.ws,
             name: Node.name

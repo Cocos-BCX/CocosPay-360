@@ -34,5 +34,5 @@ npm run build
 
 ## 配合Dapp使用插件
 
-Here is a dapp sample. [cocos-dice](https://github.com/Cocos-BCX/cocos-dice)
+Here is a dapp sample. [cocos-dice](https://github.com/CocosBCX/cocos-dice)
 

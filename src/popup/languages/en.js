@@ -115,7 +115,10 @@ export default {
     test: 'TEST',
     coin: 'Coins',
     registerCreator: 'Register as a Developer',
-    creatWorldView: 'Create a Multiverse'
+    creatWorldView: 'Create a Multiverse',
+    creatNHAsset: 'NH Asset Creation',
+    deleteNHAsset: 'NH Asset Deletion',
+    publishVotes: 'voting / withdrawal '
   },
   // alert
   alert: {
@@ -184,8 +187,19 @@ export default {
     memo: 'memo',
     charge: 'fee',
     nhTitle: 'NH Asset transfers',
-    nhId: 'NH Asset ID',
-    worldView: 'Multiverse Name:'
+    nhId: 'Coin: ',
+    worldView: 'Multiverse Name:',
+    id: 'Asset ID:',
+    world: 'Multiverse:',
+    nhData: 'data:',
+    nhUser: 'Owner:',
+    nhNum: 'Amount:',
+    type: 'Type:',
+    nhAssets: 'Create NH Assets in Batch:',
+    itemlds: 'itemlds:',
+    tpType: 'TYPE:',
+    tpId: 'ID:',
+    tpNum: 'poll:'
   },
   // settings
   settings: {
@@ -224,7 +238,7 @@ export default {
     105: 'wrong password',
     106: 'The account is already unlocked',
     107: 'Please import the private key',
-    108: 'User name or password error',
+    108: 'Password error',
     109: 'Please enter the correct private key',
     110: 'The private key has no account information',
     111: 'Please login first',

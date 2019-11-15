@@ -115,7 +115,10 @@ export default {
     test: '测试',
     coin: '币种',
     registerCreator: '注册开发者',
-    creatWorldView: '创建世界观'
+    creatWorldView: '创建世界观',
+    creatNHAsset: 'NH资产创建',
+    deleteNHAsset: 'NH资产删除',
+    publishVotes: '投票/撤票'
   },
   // alert
   alert: {
@@ -185,7 +188,18 @@ export default {
     charge: '手续费',
     nhTitle: 'NH资产转移',
     nhId: 'NH资产ID',
-    worldView: '世界观名称:'
+    worldView: '世界观名称:',
+    id: '通行资产:',
+    world: '世界观:',
+    nhData: 'NH资产数据data:',
+    nhUser: 'NH资产拥有者:',
+    nhNum: 'NH资产数量:',
+    type: 'Type:',
+    nhAssets: '批量创建不同资:',
+    itemlds: 'itemlds:',
+    tpType: '类型:',
+    tpId: '账号ID:',
+    tpNum: '票数:'
   },
   // settings
   settings: {
@@ -225,7 +239,7 @@ export default {
     105: '密码错误',
     106: '账户已经处于解锁状态',
     107: '请先导入私钥',
-    108: '用户名或密码错误',
+    108: '密码错误',
     109: '请输入正确的私钥',
     110: '该私钥没有对应的账户信息',
     111: '请先登录',

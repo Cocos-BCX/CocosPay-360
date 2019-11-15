@@ -26,6 +26,15 @@
         <div class="title" v-else-if="prompt.data.type === 'creatWorldView'">
           <span>{{languages.title.creatWorldView}}</span>
         </div>
+        <div class="title" v-else-if="prompt.data.type === 'creatNHAsset'">
+          <span>{{languages.title.creatNHAsset}}</span>
+        </div>
+        <div class="title" v-else-if="prompt.data.type === 'deleteNHAsset'">
+          <span>{{languages.title.deleteNHAsset}}</span>
+        </div>
+        <div class="title" v-else-if="prompt.data.type === 'publishVotes'">
+          <span>{{languages.title.publishVotes}}</span>
+        </div>
         <span class="signature-user">{{cocosAccount.accounts}}</span>
       </div>
 
@@ -173,7 +182,73 @@
           <div class="info-content">{{prompt.data.domain}}</div>
         </div>
       </div>
+      <div class="signature-info" v-if="prompt.data.type === 'creatNHAsset'">
+        <div class="info">
+          <div class="info-label">{{languages.label.id}}</div>
+          <div class="info-content">{{prompt.data.payload.assetId}}</div>
+        </div>
 
+        <div class="info">
+          <div class="info-label">{{languages.label.world}}</div>
+          <div class="info-content">{{prompt.data.payload.worldView}}</div>
+        </div>
+
+        <div class="info">
+          <div class="info-label">{{languages.label.nhData}}</div>
+          <!-- <div class="info-content">{{prompt.data.payload.nhData}}</div> -->
+          <div class="info-content">{{prompt.data.payload.baseDescribe}}</div>
+        </div>
+
+        <div class="info">
+          <div class="info-label">{{languages.label.nhUser}}</div>
+          <!-- <div class="info-content">{{prompt.data.payload.nhAccount}}</div> -->
+          <div
+            class="info-content"
+            style="{ width: 220px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+white-space: nowrap;}"
+          >{{prompt.data.payload.ownerAccount}}</div>
+        </div>
+
+        <div class="info">
+          <div class="info-label">{{languages.label.nhNum}}</div>
+          <!-- <div class="info-content">{{prompt.data.payload.nhNum}}</div> -->
+          <div class="info-content">{{prompt.data.payload.NHAssetsCount}}</div>
+        </div>
+
+        <div class="info">
+          <div class="info-label">{{languages.label.type}}</div>
+          <div class="info-content">{{prompt.data.payload.type}}</div>
+        </div>
+
+        <div class="info" v-if="prompt.data.payload.type != 0">
+          <div class="info-label">{{languages.label.nhAssets}}</div>
+          <div class="info-content">{{prompt.data.payload.nhAssets}}</div>
+        </div>
+      </div>
+
+      <div class="signature-info" v-if="prompt.data.type === 'deleteNHAsset'">
+        <div class="info">
+          <div class="info-label">{{languages.label.itemlds}}</div>
+          <div class="info-content">{{prompt.data.payload.NHAssetIds}}</div>
+        </div>
+      </div>
+      <div class="signature-info" v-if="prompt.data.type === 'publishVotes'">
+        <div class="info">
+          <div class="info-label">{{languages.label.tpType}}</div>
+          <div class="info-content">{{prompt.data.payload.type}}</div>
+        </div>
+
+        <div class="info">
+          <div class="info-label">{{languages.label.tpId}}</div>
+          <div class="info-content">{{prompt.data.payload.vote_ids}}</div>
+        </div>
+        <div class="info">
+          <div class="info-label">{{languages.label.tpNum}}</div>
+          <div class="info-content">{{prompt.data.payload.votes}}</div>
+        </div>
+      </div>
       <el-checkbox class="join-option" v-model="joinWhiteList">{{languages.message.joinWhiteList}}</el-checkbox>
       <section class="prompt-actions">
         <el-button class="cancel-btn text-center" @click="denied">{{languages.button.reject}}</el-button>
@@ -192,6 +267,25 @@
           v-if="prompt.data.type === 'creatWorldView'"
         >{{languages.button.confirm}}</el-button>
 
+        <el-button
+          class="confirm-btn text-center"
+          type="primary"
+          @click.once="createNHAsset"
+          v-if="prompt.data.type === 'creatNHAsset'"
+        >{{languages.button.confirm}}</el-button>
+
+        <el-button
+          class="confirm-btn text-center"
+          type="primary"
+          @click.once="deleteaNHAsset"
+          v-if="prompt.data.type === 'deleteNHAsset'"
+        >{{languages.button.confirm}}</el-button>
+        <el-button
+          class="confirm-btn text-center"
+          type="primary"
+          @click.once="publishaVotes"
+          v-if="prompt.data.type === 'publishVotes'"
+        >{{languages.button.confirm}}</el-button>
         <el-button
           class="confirm-btn text-center"
           type="primary"
@@ -261,11 +355,14 @@ export default {
     ...mapState("trans", ["tranferInfo"])
   },
   created() {
+    I18n.locale = window.localStorage.getItem("lang_type") || "ZH";
+
     this.languages = CommonJs.getI18nMessages(I18n);
     // this.data = this.prompt.data;
     // this.data = this.prompt.data.signedTransaction.raw_data.contract[0]
   },
   mounted() {
+    this.$i18n.locale = window.localStorage.getItem("lang_type") || "ZH";
     this.loadingBCXAccount().then(res => {
       this.locked = res && res.locked ? true : false;
       if (!this.locked && this.prompt.data.type === "signature") {
@@ -282,7 +379,6 @@ export default {
         });
       } else if (!this.locked && this.prompt.data.type === "callContract") {
         this.callContractFunctionFree(this.prompt.data.payload).then(res => {
-          console.log(this)
           if (res.code === 1) {
             this.fee = res.data.fee_amount;
           }
@@ -309,6 +405,9 @@ export default {
       "creatNHAssetOrder",
       "registerCreator",
       "creatWorldView",
+      "creatNHAsset",
+      "deleteNHAsset",
+      "publishVotes",
       "callContractFunctionFree",
       "fillNHAssetOrder",
       "cancelNHAssetOrder",
@@ -336,7 +435,48 @@ export default {
 
     createWorldView() {
       this.addWhite();
+
       this.creatWorldView(this.prompt.data.payload)
+        .then(res => {
+          this.prompt.responder({ accepted: true, res: res });
+          NotificationService.close();
+        })
+        .catch(err => {
+          this.prompt.responder({ accepted: true, res: err });
+          NotificationService.close();
+        });
+    },
+
+    createNHAsset() {
+      this.addWhite();
+
+      this.creatNHAsset(this.prompt.data.payload)
+        .then(res => {
+          this.prompt.responder({ accepted: true, res: res });
+          NotificationService.close();
+        })
+        .catch(err => {
+          this.prompt.responder({ accepted: true, res: err });
+          NotificationService.close();
+        });
+    },
+
+    deleteaNHAsset() {
+      this.addWhite();
+      this.deleteNHAsset(this.prompt.data.payload)
+        .then(res => {
+          this.prompt.responder({ accepted: true, res: res });
+          NotificationService.close();
+        })
+        .catch(err => {
+          this.prompt.responder({ accepted: true, res: err });
+          NotificationService.close();
+        });
+    },
+
+    publishaVotes() {
+      this.addWhite();
+      this.publishVotes(this.prompt.data.payload)
         .then(res => {
           this.prompt.responder({ accepted: true, res: res });
           NotificationService.close();
