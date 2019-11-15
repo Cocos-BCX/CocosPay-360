@@ -133,6 +133,15 @@ class Inject {
       case MessageTypes.CREATE_WORLDVIEW:
         this.creatWorldView(nonSyncMessage)
         break
+      case MessageTypes.CREATE_NH_ASSET:
+        this.creatNHAsset(nonSyncMessage)
+        break
+      case MessageTypes.DELETE_NH_ASSET:
+        this.deleteNHAsset(nonSyncMessage)
+        break
+      case MessageTypes.PUBLISH_VOTES:
+        this.publishVotes(nonSyncMessage)
+        break
       default:
         stream.send(nonSyncMessage.error(Error.maliciousEvent()), MessageTypes.INJECTED)
     }
@@ -176,21 +185,21 @@ class Inject {
         this.respond(message, res)
       })
   }
-  transferNHAsset(message){
+  transferNHAsset(message) {
     InternalMessage.widthPayloadAndResolver(InternalMessageTypes.TRANSFER_NH_ASSET, message, message.resolver)
       .send().then(res => {
         this.respond(message, res)
       })
   }
 
-  registerCreator(message){
+  registerCreator(message) {
     InternalMessage.widthPayloadAndResolver(InternalMessageTypes.REGISTER_CREATOR, message, message.resolver)
       .send().then(res => {
         this.respond(message, res)
       })
   }
 
-  creatWorldView(message){
+  creatWorldView(message) {
     InternalMessage.widthPayloadAndResolver(InternalMessageTypes.CREATE_WORLDVIEW, message, message.resolver)
       .send().then(res => {
         this.respond(message, res)
@@ -205,6 +214,25 @@ class Inject {
   }
   signature(message) {
     InternalMessage.widthPayloadAndResolver(InternalMessageTypes.SIGNATURE, message, message.resolver)
+      .send().then(res => {
+        this.respond(message, res)
+      })
+  }
+
+  creatNHAsset(message) {
+    InternalMessage.widthPayloadAndResolver(InternalMessageTypes.CREATE_NH_ASSET, message, message.resolver)
+      .send().then(res => {
+        this.respond(message, res)
+      })
+  }
+  deleteNHAsset(message) {
+    InternalMessage.widthPayloadAndResolver(InternalMessageTypes.DELETE_NH_ASSET, message, message.resolver)
+      .send().then(res => {
+        this.respond(message, res)
+      })
+  }
+  publishVotes(message) {
+    InternalMessage.widthPayloadAndResolver(InternalMessageTypes.DELETE_NH_ASSET, message, message.resolver)
       .send().then(res => {
         this.respond(message, res)
       })
